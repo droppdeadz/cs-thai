@@ -46,8 +46,11 @@ if [ ! -d "$SOUNDS_DIR" ]; then
   exit 0
 fi
 
-# Collect sound files
-mapfile -t SOUNDS < <(find "$SOUNDS_DIR" -maxdepth 1 -type f \( -name "*.mp3" -o -name "*.wav" -o -name "*.ogg" \) 2>/dev/null | sort)
+# Collect sound files (bash 3 compatible)
+SOUNDS=()
+while IFS= read -r line; do
+  SOUNDS+=("$line")
+done < <(find "$SOUNDS_DIR" -maxdepth 1 -type f \( -name "*.mp3" -o -name "*.wav" -o -name "*.ogg" \) 2>/dev/null | sort)
 
 if [ ${#SOUNDS[@]} -eq 0 ]; then
   exit 0
