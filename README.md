@@ -16,14 +16,17 @@
 
 ### Via Claude Code plugin
 
+First add the marketplace, then install:
+
 ```bash
+claude plugin marketplace add https://github.com/nutttaro/cs-thai.git
 claude plugin install cs-thai@nutttaro
 ```
 
 ### Via Git
 
 ```bash
-git clone https://gitlab.com/nutttaro/cs-thai ~/.claude/plugins/cs-thai
+git clone https://github.com/nutttaro/cs-thai ~/.claude/plugins/cs-thai
 ```
 
 ## CLI

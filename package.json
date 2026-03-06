@@ -15,7 +15,7 @@
   "homepage": "https://www.nutttaro.com",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/nutttaro/cs-thai"
+    "url": "https://github.com/nutttaro/cs-thai"
   },
   "bin": {
     "cs-thai": "scripts/cs-thai"

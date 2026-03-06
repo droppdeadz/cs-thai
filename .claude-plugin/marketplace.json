@@ -1,0 +1,24 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "nutttaro",
+  "version": "1.0.0",
+  "description": "nutttaro's Claude Code plugins",
+  "owner": {
+    "name": "nutttaro",
+    "email": "nutttaro@email.com"
+  },
+  "plugins": [
+    {
+      "name": "cs-thai",
+      "description": "Counter-Strike Thai-language sound effects for Claude Code — playful Thai voice reactions for every coding moment",
+      "version": "1.0.0",
+      "author": {
+        "name": "nutttaro",
+        "email": "nutttaro@email.com"
+      },
+      "source": "./",
+      "category": "productivity",
+      "homepage": "https://github.com/nutttaro/cs-thai"
+    }
+  ]
+}
