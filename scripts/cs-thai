@@ -70,7 +70,7 @@ show_status() {
   echo -e "  ${DIM}Events:${RESET}"
   python3 -c "
 import json
-events = ['session-start', 'task-acknowledge', 'task-complete', 'error', 'permission']
+events = ['session-start', 'task-acknowledge', 'task-complete', 'error', 'permission', 'subagent-stop']
 try:
     with open('$CONFIG_FILE') as f:
         c = json.load(f)
@@ -95,7 +95,7 @@ show_help() {
   echo -e "    cs-thai ${CYAN}toggle${RESET} <event>       Enable/disable an event"
   echo -e "    cs-thai ${CYAN}test${RESET} [category]      Play a test sound"
   echo -e ""
-  echo -e "  ${BOLD}Events:${RESET} session-start, task-acknowledge, task-complete, error, permission"
+  echo -e "  ${BOLD}Events:${RESET} session-start, task-acknowledge, task-complete, error, permission, subagent-stop"
   echo -e ""
 }
 

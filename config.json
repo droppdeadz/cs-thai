@@ -5,6 +5,7 @@
     "task-acknowledge": true,
     "task-complete": true,
     "error": true,
-    "permission": true
+    "permission": true,
+    "subagent-stop": true
   }
 }
