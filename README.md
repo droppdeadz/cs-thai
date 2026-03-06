@@ -4,13 +4,14 @@
 
 ## Sounds
 
-| Event | File | Description |
-|---|---|---|
-| Session Start | `ready.mp3` | Plays when Claude Code starts |
-| Task Acknowledge | `good-need-backup.mp3` | Plays when you submit a prompt |
-| Task Complete | `hahaha.mp3` | Plays when a task finishes |
-| Permission | `refuse.mp3` | Plays on notification/permission events |
-| Error | `dog.mp3` | Plays on error states |
+| Event | Slug | Hook | Sounds | Description |
+|---|---|---|---|---|
+| Session Start | session-start | `SessionStart` | `letsgo`, `locknload`, `regroup`, `terwin`, `vip` | Plays when a session begins or resumes |
+| Task Acknowledge | task-acknowledge | `UserPromptSubmit` | `ct_affirm`, `ct_inpos`, `ct_point`, `position`, `sprayer` | Plays when you submit a prompt, before Claude processes it |
+| Task Complete | task-complete | `Stop` | `ctwin`, `enemydown`, `rescued`, `rounddraw` | Plays when Claude finishes responding |
+| Subagent Stop | subagent-stop | `SubagentStop` | `com_getinpos`, `com_go`, `elim`, `meetme` | Plays when a subagent finishes |
+| Permission | permission | `Notification` | `circleback`, `com_followcom`, `ct_backup`, `followme`, `go` | Plays when Claude Code sends a notification |
+| Error | error | — | `clear`, `hitassist`, `matedown`, `negative` | Not currently wired to a hook |
 
 ## Installation
 
@@ -34,8 +35,8 @@ git clone https://github.com/nutttaro/cs-thai ~/.claude/plugins/cs-thai
 ```bash
 cs-thai status                 # Show current config
 cs-thai volume 0.7             # Set volume (0.0–1.0)
-cs-thai toggle session-start   # Enable/disable an event
-cs-thai test task-complete     # Play a test sound
+cs-thai toggle session-start   # Enable/disable an event (event slug)
+cs-thai test task-complete     # Play a test sound (event slug)
 ```
 
 ## Requirements
