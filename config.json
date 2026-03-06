@@ -6,6 +6,8 @@
     "task-complete": true,
     "error": true,
     "permission": true,
-    "subagent-stop": true
+    "subagent-start": true,
+    "subagent-stop": true,
+    "session-end": true
   }
 }

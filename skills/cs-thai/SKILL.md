@@ -20,4 +20,4 @@ Manage the cs-thai sound effects plugin.
 
 Run the CLI script: `bash $CLAUDE_PLUGIN_ROOT/scripts/cs-thai <command> [args]`
 
-Events: `session-start`, `task-acknowledge`, `task-complete`, `error`, `permission`
+Events: `session-start`, `task-acknowledge`, `task-complete`, `error`, `permission`, `subagent-start`, `subagent-stop`, `session-end`
