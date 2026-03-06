@@ -6,14 +6,14 @@
 
 | Event | Slug | Hook | Sounds | Description |
 |---|---|---|---|---|
-| Session Start | session-start | `SessionStart` | `letsgo`, `locknload`, `regroup`, `terwin` | Plays when a session begins or resumes |
-| Task Acknowledge | task-acknowledge | `UserPromptSubmit` | `ct_affirm`, `ct_inpos`, `ct_point`, `position`, `sprayer` | Plays when you submit a prompt, before Claude processes it |
+| Session Start | session-start | `SessionStart` | `locknload`, `regroup`, `terwin` | Plays when a session begins or resumes |
+| Task Acknowledge | task-acknowledge | `UserPromptSubmit` | `ct_affirm`, `ct_point`, `letsgo`, `sprayer` | Plays when you submit a prompt, before Claude processes it |
 | Task Complete | task-complete | `Stop` | `ctwin`, `enemydown`, `rescued` | Plays when Claude finishes responding |
-| Error | error | `PostToolUseFailure` | `got_shoted`, `mate_down`, `negative`, `nothing_here` | Plays when a tool execution fails |
-| Permission | permission | `Notification` | `backup`, `repeat_command` | Plays when Claude needs permission (matched to `permission_prompt`) |
-| Subagent Start | subagent-start | `SubagentStart` | `com_getinpos`, `elim`, `vip` | Plays when a subagent is spawned |
-| Subagent Stop | subagent-stop | `SubagentStop` | `bombdef`, `bombpl`, `com_go`, `moveout` | Plays when a subagent finishes |
-| Session End | session-end | `SessionEnd` | `meeting_point`, `ranaway`, `see_u_later` | Plays when a session terminates |
+| Error | error | `PostToolUseFailure` | `mate_down`, `negative` | Plays when a tool execution fails |
+| Permission | permission | `Notification` | `got_shoted`, `vip` | Plays when Claude needs permission (matched to `permission_prompt`) |
+| Subagent Start | subagent-start | `SubagentStart` | `com_getinpos` | Plays when a subagent is spawned |
+| Subagent Stop | subagent-stop | `SubagentStop` | `com_go` | Plays when a subagent finishes |
+| Session End | session-end | `SessionEnd` | `ranaway`, `see_u_later` | Plays when a session terminates |
 
 ## Installation
 
