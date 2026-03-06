@@ -1,0 +1,10 @@
+{
+  "volume": 0.5,
+  "enabled_events": {
+    "session-start": true,
+    "task-acknowledge": true,
+    "task-complete": true,
+    "error": true,
+    "permission": true
+  }
+}

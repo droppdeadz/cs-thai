@@ -1,0 +1,11 @@
+{
+  "name": "cs-thai",
+  "version": "1.0.0",
+  "description": "Thai-language sound effects for Claude Code — playful Thai voice reactions for every coding moment",
+  "author": {
+    "name": "nutttaro",
+    "email": "info@nutttaro.com"
+  },
+  "homepage": "https://gitlab.com/nutttaro/cs-thai",
+  "repository": "https://gitlab.com/nutttaro/cs-thai"
+}

@@ -1,0 +1,158 @@
+#!/usr/bin/env bash
+
+BOLD="\033[1m"
+DIM="\033[2m"
+GREEN="\033[32m"
+YELLOW="\033[33m"
+CYAN="\033[36m"
+RESET="\033[0m"
+
+PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
+CONFIG_FILE="$PLUGIN_ROOT/config.json"
+
+read_config() {
+  local key="$1"
+  python3 -c "
+import json
+try:
+    with open('$CONFIG_FILE') as f:
+        c = json.load(f)
+    print(c.get('$key', ''))
+except:
+    pass
+" 2>/dev/null
+}
+
+write_config() {
+  local key="$1"
+  local value="$2"
+  python3 -c "
+import json
+try:
+    with open('$CONFIG_FILE') as f:
+        c = json.load(f)
+    c['$key'] = $value
+    with open('$CONFIG_FILE', 'w') as f:
+        json.dump(c, f, indent=2)
+    print('ok')
+except Exception as e:
+    print('error:', e)
+" 2>/dev/null
+}
+
+write_event_enabled() {
+  local event="$1"
+  local enabled="$2"
+  python3 -c "
+import json
+try:
+    with open('$CONFIG_FILE') as f:
+        c = json.load(f)
+    if 'enabled_events' not in c:
+        c['enabled_events'] = {}
+    c['enabled_events']['$event'] = $enabled
+    with open('$CONFIG_FILE', 'w') as f:
+        json.dump(c, f, indent=2)
+    print('ok')
+except Exception as e:
+    print('error:', e)
+" 2>/dev/null
+}
+
+show_status() {
+  local volume
+  volume=$(read_config "volume")
+  echo -e ""
+  echo -e "  ${BOLD}cs-thai${RESET} — Thai sound effects for Claude Code 🇹🇭"
+  echo -e ""
+  echo -e "  ${DIM}Volume:${RESET}  ${CYAN}${volume}${RESET}"
+  echo -e ""
+  echo -e "  ${DIM}Events:${RESET}"
+  python3 -c "
+import json
+events = ['session-start', 'task-acknowledge', 'task-complete', 'error', 'permission']
+try:
+    with open('$CONFIG_FILE') as f:
+        c = json.load(f)
+    enabled = c.get('enabled_events', {})
+    for e in events:
+        state = enabled.get(e, True)
+        icon = '\033[32m✔\033[0m' if state else '\033[31m✘\033[0m'
+        print(f'    {icon}  {e}')
+except:
+    pass
+" 2>/dev/null
+  echo -e ""
+}
+
+show_help() {
+  echo -e ""
+  echo -e "  ${BOLD}cs-thai${RESET} — Thai sound effects for Claude Code"
+  echo -e ""
+  echo -e "  ${BOLD}Usage:${RESET}"
+  echo -e "    cs-thai ${CYAN}status${RESET}               Show current configuration"
+  echo -e "    cs-thai ${CYAN}volume${RESET} [0.0-1.0]     Get or set volume"
+  echo -e "    cs-thai ${CYAN}toggle${RESET} <event>       Enable/disable an event"
+  echo -e "    cs-thai ${CYAN}test${RESET} [category]      Play a test sound"
+  echo -e ""
+  echo -e "  ${BOLD}Events:${RESET} session-start, task-acknowledge, task-complete, error, permission"
+  echo -e ""
+}
+
+CMD="${1:-status}"
+shift || true
+
+case "$CMD" in
+  status|s)
+    show_status
+    ;;
+
+  volume|vol|v)
+    if [ -z "$1" ]; then
+      VOL=$(read_config "volume")
+      echo -e "  Volume: ${CYAN}${VOL}${RESET}"
+    else
+      VOL="$1"
+      write_config "volume" "$VOL" > /dev/null
+      echo -e "  ${GREEN}Volume set to ${VOL}${RESET}"
+    fi
+    ;;
+
+  toggle)
+    EVENT="$1"
+    if [ -z "$EVENT" ]; then
+      echo "Usage: cs-thai toggle <event>"
+      exit 1
+    fi
+    CURRENT=$(python3 -c "
+import json
+try:
+    with open('$CONFIG_FILE') as f:
+        c = json.load(f)
+    print('true' if c.get('enabled_events', {}).get('$EVENT', True) else 'false')
+except:
+    print('true')
+" 2>/dev/null)
+    if [ "$CURRENT" = "true" ]; then
+      write_event_enabled "$EVENT" "False" > /dev/null
+      echo -e "  ${YELLOW}Disabled${RESET} $EVENT"
+    else
+      write_event_enabled "$EVENT" "True" > /dev/null
+      echo -e "  ${GREEN}Enabled${RESET} $EVENT"
+    fi
+    ;;
+
+  test|t)
+    CATEGORY="${1:-task-complete}"
+    echo -e "  Playing ${CYAN}${CATEGORY}${RESET}..."
+    bash "$PLUGIN_ROOT/scripts/play-sound.sh" "$CATEGORY"
+    ;;
+
+  help|--help|-h)
+    show_help
+    ;;
+
+  *)
+    show_status
+    ;;
+esac
